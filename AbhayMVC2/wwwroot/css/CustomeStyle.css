@@ -1,0 +1,17 @@
+﻿h1{
+    color:orange;
+    padding-bottom:52px;
+}
+nav{
+    height:90px;
+}
+nav ul li {
+    display: inline;
+    padding:12px;
+    background-color:navy;
+}
+nav ul li a{
+    color:wheat;
+    text-decoration:none;
+}
+

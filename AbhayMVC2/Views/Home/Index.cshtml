@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "_Layout";
+}
+<h1>Welcome to MVC appication</h1>
+@*<h2>Message: @ViewBag.msg</h2>
+ 
+<ol>
+    @foreach(var stu in ViewBag.Students)
+            {
+                <li>@stu</li>
+            }
+</ol>*@
+
+<ul>
+    @foreach (var stu in (List<string>)ViewData["Students"])
+    {
+        <li>@stu</li>
+    }
+</ul>
