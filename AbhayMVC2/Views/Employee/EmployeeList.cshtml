@@ -1,0 +1,33 @@
+﻿
+@model IEnumerable<AbhayMVC2.Models.Employee>
+
+@{ 
+    Layout = "_Layout";
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Mobile</td>
+            <td>Salary</td>
+            <td>Gender</td>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in Model)
+        {
+            <tr>
+                <td>@emp.Id</td>
+                <td>@emp.Name</td>
+                <td>@emp.Email</td>
+                <td>@emp.Mobile</td>
+                <td>@emp.Salary</td>
+                <td>@emp.Gender</td>
+            </tr>
+        }
+    </tbody>
+</table>
