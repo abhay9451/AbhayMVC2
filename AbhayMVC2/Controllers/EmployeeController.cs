@@ -31,5 +31,24 @@ namespace AbhayMVC2.Controllers
             DBContext.SaveChanges();
             return RedirectToAction("EmployeeList");
         }
+        public IActionResult DeleteEmployee(int id)
+        {
+            var emp = DBContext.Employees.SingleOrDefault(e => e.Id == id);
+            DBContext.Employees.Remove(emp);
+            DBContext.SaveChanges();
+            return RedirectToAction("EmployeeList");
+        }
+        public IActionResult EditEmployee(int id)
+        {
+            var emp = DBContext.Employees.SingleOrDefault(e => e.Id == id);
+            return View(emp);
+        }
+        [HttpPost]
+        public IActionResult EditEmployee(Employee emp)
+        {
+            DBContext.Employees.Update(emp);
+            DBContext.SaveChanges();
+            return RedirectToAction("EmployeeList");
+        }
     }
 }
