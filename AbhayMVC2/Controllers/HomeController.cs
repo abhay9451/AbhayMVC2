@@ -23,8 +23,8 @@ namespace AbhayMVC2.Controllers
              //ViewBag.Students = Students;
              ViewData["Students"] = Students;*/
 
-            var employee = DBContext.Employees.ToList();
-            return View(employee);
+           // var employee = DBContext.Employees.ToList();
+             return View();
             
         }
         public IActionResult About()
@@ -40,6 +40,10 @@ namespace AbhayMVC2.Controllers
             return View();
         }
         public IActionResult Services()
+        {
+            return View();
+        }
+        public IActionResult More()
         {
             return View();
         }

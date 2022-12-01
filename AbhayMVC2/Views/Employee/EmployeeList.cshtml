@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<AbhayMVC2.Models.Employee>
+@model IEnumerable<AbhayMVC2.ViewModel.EmployeeVm>
 
 @{ 
     Layout = "_Layout";
@@ -8,13 +8,16 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <td>Id</td>
+             <td>Id</td>
             <td>Name</td>
             <td>Email</td>
             <td>Mobile</td>
             <td>Salary</td>
             <td>Gender</td>
+            <td>Departent</td>
+            <td>Image</td>
             <td>Action</td>
+
 
         </tr>
     </thead>
@@ -28,6 +31,11 @@
                 <td>@emp.Mobile</td>
                 <td>@emp.Salary</td>
                 <td>@emp.Gender</td>
+                <td>@emp.DName</td>
+                <td>
+                    <img src="~/@emp.Image" height="70" width="70" />
+                </td>
+                
                 <td class="text-center">
                     <a asp-action="EditEmployee" asp-controller="Employee" asp-route-id="@emp.Id" class="btn btn-sm btn-info" onclick="return confirm('Are You Sure to Edit this recored ?')">Edit</a>
                     <a asp-action="DeleteEmployee" asp-controller="Employee" asp-route-id="@emp.Id" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure to delete this recored ?')">Delete</a>
