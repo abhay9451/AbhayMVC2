@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,9 +15,9 @@ namespace AbhayMVC2.Controllers
     public class EmployeeController : Controller
     {
         public ApplicationDBContext DBContext { get; }
-        public IHostingEnvironment Environment { get; }
+        public IWebHostEnvironment Environment { get; }
 
-        public EmployeeController(ApplicationDBContext dBContext, IHostingEnvironment environment)
+        public EmployeeController(ApplicationDBContext dBContext, IWebHostEnvironment environment)
         {
 
             DBContext = dBContext;
@@ -91,6 +92,7 @@ namespace AbhayMVC2.Controllers
         }
         public IActionResult EditEmployee(int id)
         {
+            ViewBag.dept = DBContext.Departments.ToList();
             var emp = DBContext.Employees.SingleOrDefault(e => e.Id == id);
             return View(emp);
         }
@@ -120,7 +122,15 @@ namespace AbhayMVC2.Controllers
                     if (fsize / 1024 <= 100)
                     {
                         string p = Environment.WebRootPath;
-                        String NewFileName = Guid.NewGuid().ToString() + ext;
+                        //String NewFileName = Guid.NewGuid().ToString() + ext;
+                        string timestamp = DateTime.UtcNow.ToString("yyyy,mm,dd HH:mm:ss.ff",
+                                            CultureInfo.InvariantCulture);
+                        timestamp = timestamp.Replace('-', '_');
+                        timestamp = timestamp.Replace('.', '_');
+                        timestamp = timestamp.Replace(':', '_');
+                        timestamp = timestamp.Replace(' ', '_');
+                        
+                        String NewFileName = timestamp + ext;
                         string path = Path.Combine(p, "Images", NewFileName);
                         FileStream fs = new FileStream(path, FileMode.CreateNew);
 
@@ -143,6 +153,16 @@ namespace AbhayMVC2.Controllers
                 ErrorMessage = "Please upload file !";
             }
             return filepath;
+        }
+
+        public IActionResult DownLoadFile(string FileName)
+        {
+            string p = Environment.WebRootPath;
+            string fullPath = Path.Combine(p,FileName);
+            string NFileName = FileName.Split("\\")[1];
+            byte[] fileBytes = System.IO.File.ReadAllBytes(fullPath);
+
+            return File(fileBytes, "application/force-download",NFileName);
         }
     }
 
